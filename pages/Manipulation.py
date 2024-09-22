@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # Streamlit UI
-st.set_page_config(page_title="CSV Data Manipulator",layout="wide", page_icon="😎")
+st.set_page_config(page_title="CSV Data Manipulator",layout="wide", )
 
 # Function to filter the DataFrame based on user inputs
 def filter_data(df, min_likes, max_likes, min_comments, max_comments, min_views, max_views, start_date, end_date, sort_by, ascending):

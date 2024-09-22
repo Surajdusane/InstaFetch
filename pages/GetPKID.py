@@ -4,7 +4,6 @@ import pandas as pd
 
 st.set_page_config(
     page_title="Get PK ID",
-    page_icon="😎"
 )
 
 st.sidebar.success("Session ID: " + str(st.session_state.get("session_id", ""))[:15] + "...")
