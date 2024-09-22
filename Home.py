@@ -5,7 +5,7 @@ st.set_page_config(
     
 )
 
-st.title("Insta Fetch 😎")
+st.title("Insta Fetch ")
 st.sidebar.success("Select the page above")
 sessio_id = ""
 
