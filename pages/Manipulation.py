@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 
+# Streamlit UI
+st.set_page_config(page_title="CSV Data Manipulator",layout="wide", page_icon="😎")
+
 # Function to filter the DataFrame based on user inputs
 def filter_data(df, min_likes, max_likes, min_comments, max_comments, min_views, max_views, start_date, end_date, sort_by, ascending):
     # Convert 'dates' column to datetime if not already
@@ -37,8 +40,7 @@ def filter_data(df, min_likes, max_likes, min_comments, max_comments, min_views,
 
     return df
 
-# Streamlit UI
-st.set_page_config(page_title="CSV Data Manipulator",layout="wide")
+
 
 # Toggle button for using generated CSV or uploading CSV
 use_generated_csv = st.toggle("Use Generated CSV", value=True)

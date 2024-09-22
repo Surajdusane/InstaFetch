@@ -2,6 +2,11 @@ import streamlit as st
 import requests
 import pandas as pd
 
+st.set_page_config(
+    page_title="Get PK ID",
+    page_icon="😎"
+)
+
 st.sidebar.success("Session ID: " + str(st.session_state.get("session_id", ""))[:15] + "...")
 st.sidebar.success(("PK ID: " + str(st.session_state.get("pk_id", ""))) or "Not set")
 

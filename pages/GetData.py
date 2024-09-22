@@ -7,6 +7,11 @@ import pandas as pd
 import time  
 import random
 
+st.set_page_config(
+    page_title="Get Data",
+    page_icon="😎"
+)
+
 # Function to convert Unix timestamp to a readable string
 def convert_unix_timestamp(timestamp):
     dt_object = datetime.datetime.utcfromtimestamp(timestamp)
