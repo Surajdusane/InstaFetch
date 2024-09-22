@@ -4,6 +4,9 @@ import streamlit as st
 st.title("InstaFetch Tool Instructions: Session ID and Data Generation")
 st.markdown("Welcome to the InstaFetch Tool! This guide will walk you through the process of obtaining a session ID, using it to generate profile data, and filtering the data.  ")
 
+st.warning("⚠️ Use a temporary account's session ID for generating data. Do not use your primary account's session key to avoid potential bans.")
+
+
 ## Step 1: Obtaining Your Session ID
 
 with st.expander("Step 1: Obtaining Your Session ID"):
