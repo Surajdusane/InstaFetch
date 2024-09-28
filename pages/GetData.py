@@ -78,8 +78,11 @@ if st.button("Fetch Data"):
             csv_data = []
             for post in data:
                 media_id = str(post["node"]["id"])
+                video = post["node"]["is_video"]
                 shortcode = post["node"]["shortcode"]
-                link = f"https://www.instagram.com/p/{shortcode}"
+                reel_link = "https://www.instagram.com/reel/"
+                post_link = "https://www.instagram.com/p/"
+                link = reel_link + shortcode if video else post_link + shortcode
                 likes = post["node"]["edge_media_preview_like"]["count"]
                 comments = post["node"]["edge_media_to_comment"]["count"]
                 views = post["node"].get("video_view_count", 0) if post["node"]["is_video"] else 0
