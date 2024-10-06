@@ -6,9 +6,6 @@ st.set_page_config(
     page_title="Get PK ID",
 )
 
-st.sidebar.success("Session ID: " + str(st.session_state.get("session_id", ""))[:15] + "...")
-st.sidebar.success(("PK ID: " + str(st.session_state.get("pk_id", ""))) or "Not set")
-
 def get_users(username, sessionid):
     url = f"https://www.instagram.com/web/search/topsearch/?query={username}"
     
