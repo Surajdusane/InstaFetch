@@ -38,13 +38,14 @@ def get_pk_id(post_url):
     return None  # Return None if both calls fail
 
 # Function to get Instagram data
-def get_instagram_data(user_id, session, query_hash):
+def get_instagram_data(user_id, query_hash):
     all_posts = []
+    total_fetched = 0  # Initialize the count
     end_cursor = None
     has_next_page = True
 
     while has_next_page:
-        variables = f'{{"id":"{user_id}","first":12,"after":"{end_cursor}"}}' if end_cursor else f'{{"id":"{user_id}","first":12}}'
+        variables = f'{{"id":"{user_id}","first":24,"after":"{end_cursor}"}}' if end_cursor else f'{{"id":"{user_id}","first":24}}'
         url = f"https://www.instagram.com/graphql/query/?query_hash={query_hash}&variables={variables}"
         print(url)
 
@@ -52,7 +53,7 @@ def get_instagram_data(user_id, session, query_hash):
         sleep_time = random.randint(2, 6)
         print(sleep_time)
         time.sleep(sleep_time)
-        response = session.get(url)
+        response = requests.get(url)  # Directly use requests.get
 
         # Respect Instagram's rate limit
         if response.status_code != 200:
@@ -68,11 +69,15 @@ def get_instagram_data(user_id, session, query_hash):
         posts = data['data']['user']['edge_owner_to_timeline_media']['edges']
         all_posts.extend(posts)
 
+        total_fetched += len(posts)  # Update the total_fetched count
+        # Show the total fetched posts count in the Streamlit app
+        st.write(f"Fetched {total_fetched} posts.")  
+
         page_info = data['data']['user']['edge_owner_to_timeline_media']['page_info']
         end_cursor = page_info['end_cursor']
         has_next_page = page_info['has_next_page']
 
-    return all_posts
+    return all_posts, total_fetched  # Return both posts and total_fetched
 
 # Streamlit app layout
 st.title("Instagram Data Fetcher")
@@ -85,18 +90,12 @@ if st.button("Fetch Data"):
     if post_url:
         user_id = get_pk_id(post_url)
         if user_id:
-            st.session_state["pk_id"] = user_id
             st.success(f"User ID: {user_id}")
 
-            session_id = st.session_state.get('session_id')
-            session = requests.Session()
-            session.cookies.set('sessionid', session_id)
-
             query_hash = "472f257a40c653c64c666ce877d59d2b"
-            data = get_instagram_data(user_id, session, query_hash)
-
+            data, total_fetched = get_instagram_data(user_id, query_hash)  # Fetch both data and total_fetched
+            
             if data:
-                st.write(f"Fetched {len(data)} posts.")
                 # Convert to CSV
                 csv_data = []
                 for post in data:
